@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
-import { products } from '../../utils/productsData';
-
+import productsData from '../../utils/productsData';
 
 export async function GET() {
-return NextResponse.json(products);
+  return NextResponse.json(productsData);
 }
