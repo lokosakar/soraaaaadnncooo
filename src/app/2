@@ -1,0 +1,328 @@
+'use client';
+import React, { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
+
+export default function AboutPage() {
+  const containerRef = useRef(null);
+  const bannerRef = useRef(null);
+  const highlightRef = useRef(null);
+  const timelineRef = useRef(null);
+  const valuesRef = useRef(null);
+  const processRef = useRef(null);
+
+  useEffect(() => {
+    const sections = containerRef.current.children;
+
+    // Fade-in seluruh konten awal
+    gsap.fromTo(
+      sections,
+      { opacity: 0, y: 50 },
+      { opacity: 1, y: 0, stagger: 0.25, duration: 1.2, ease: 'power3.out' }
+    );
+
+    // Parallax Banner
+    gsap.to(bannerRef.current, {
+      scale: 1.05,
+      y: -80,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: bannerRef.current,
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: true,
+      },
+    });
+
+    // Highlight Card
+    gsap.fromTo(
+      highlightRef.current,
+      { scale: 0.95, opacity: 0 },
+      {
+        scale: 1,
+        opacity: 1,
+        duration: 1.3,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: highlightRef.current,
+          start: "top 85%",
+        },
+      }
+    );
+
+    // Timeline
+    gsap.fromTo(
+      timelineRef.current.children,
+      { opacity: 0, x: -40 },
+      {
+        opacity: 1,
+        x: 0,
+        stagger: 0.2,
+        duration: 1.1,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: timelineRef.current,
+          start: "top 85%",
+        },
+      }
+    );
+
+    // Core Values
+    gsap.from(valuesRef.current.children, {
+      scrollTrigger: { trigger: valuesRef.current, start: 'top 85%' },
+      opacity: 0,
+      y: 40,
+      stagger: 0.2,
+      duration: 1,
+      ease: 'power3.out',
+    });
+
+    // Craftsmanship Process
+    gsap.from(processRef.current.children, {
+      scrollTrigger: { trigger: processRef.current, start: 'top 85%' },
+      opacity: 0,
+      x: 40,
+      stagger: 0.2,
+      duration: 1,
+      ease: 'power3.out',
+    });
+  }, []);
+
+  return (
+    <div
+      ref={containerRef}
+      style={{
+        backgroundColor: '#0f0f0f',
+        color: '#fff',
+        padding: '120px 40px',
+        minHeight: '100vh',
+        fontFamily: 'Poppins, serif',
+      }}
+    >
+      {/* TITLE */}
+      <h1
+        style={{
+          fontSize: '54px',
+          color: '#d4af37',
+          textAlign: 'center',
+          letterSpacing: '3px',
+          marginBottom: '20px',
+          textShadow: '0 0 25px rgba(212,175,55,0.3)',
+        }}
+      >
+        About SORA & CO.
+      </h1>
+
+      {/* SUBHEAD */}
+      <p
+        style={{
+          maxWidth: '850px',
+          margin: '0 auto',
+          textAlign: 'center',
+          fontSize: '18px',
+          lineHeight: 1.75,
+          opacity: 0.95,
+          color: '#e6e6e6',
+        }}
+      >
+        Rumah kreatif fashion Indonesia yang merayakan ekspresi diri
+        melalui karya elegan, minimalis, dan penuh karakter.
+      </p>
+
+      {/* PARALLAX BANNER */}
+      <div style={{ marginTop: '70px', textAlign: 'center' }}>
+        <div
+          ref={bannerRef}
+          style={{
+            display: 'inline-block',
+            borderRadius: '20px',
+            overflow: 'hidden',
+            border: '1px solid rgba(212,175,55,0.3)',
+            boxShadow: '0 0 60px rgba(212,175,55,0.2)',
+          }}
+        >
+          <img
+            src="/banner.jpg"
+            style={{
+              width: '100%',
+              maxWidth: '1000px',
+              height: '500px',
+              objectFit: 'cover',
+              display: 'block',
+              filter: 'brightness(0.9)',
+            }}
+          />
+        </div>
+      </div>
+
+      {/* GOLD HIGHLIGHT */}
+      <div
+        ref={highlightRef}
+        style={{
+          marginTop: '100px',
+          padding: '60px 35px',
+          backgroundColor: '#141414',
+          borderRadius: '16px',
+          border: '1px solid rgba(212,175,55,0.35)',
+          textAlign: 'center',
+          boxShadow: '0 0 50px rgba(212,175,55,0.15)',
+        }}
+      >
+        <h2
+          style={{
+            fontSize: '36px',
+            color: '#d4af37',
+            marginBottom: '18px',
+            letterSpacing: '2px',
+          }}
+        >
+          Filosofi Kami
+        </h2>
+        <p
+          style={{
+            maxWidth: '750px',
+            margin: '0 auto',
+            lineHeight: 1.8,
+            opacity: 0.95,
+            color: '#e6e6e6',
+          }}
+        >
+          Fashion bagi kami bukan sekadar pakaian — ia adalah identitas.
+          Setiap koleksi kami lahir dari proses kreatif yang menghargai
+          detail, keaslian, dan keberanian untuk tampil istimewa.
+        </p>
+      </div>
+
+      {/* CORE VALUES */}
+      <div
+        ref={valuesRef}
+        style={{
+          marginTop: '120px',
+          textAlign: 'center',
+        }}
+      >
+        <h2
+          style={{
+            color: '#d4af37',
+            fontSize: '36px',
+            marginBottom: '50px',
+          }}
+        >
+          Nilai Inti SORA & CO.
+        </h2>
+
+        <div style={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          justifyContent: 'center',
+          gap: '25px',
+        }}>
+          {[
+            ["Elegance", "Setiap karya membawa sentuhan kemewahan."],
+            ["Craftsmanship", "Dibuat dengan detail presisi dan rasa bangga."],
+            ["Identity", "Fashion sebagai bentuk cerita pribadi."],
+            ["Innovation", "Selalu berkembang menghadirkan sesuatu yang baru."]
+          ].map(([title, desc], i) => (
+            <div key={i}
+              style={{
+                width: '260px',
+                padding: '25px',
+                background: '#151515',
+                borderRadius: '14px',
+                border: '1px solid rgba(212,175,55,0.25)',
+                boxShadow: '0 0 20px rgba(212,175,55,0.1)',
+              }}
+            >
+              <h3 style={{ color: '#d4af37', marginBottom: '10px' }}>{title}</h3>
+              <p style={{ opacity: 0.85 }}>{desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* CRAFTSMANSHIP PROCESS */}
+      <div
+        ref={processRef}
+        style={{
+          marginTop: '140px',
+          maxWidth: '900px',
+          marginLeft: 'auto',
+          marginRight: 'auto',
+        }}
+      >
+        <h2
+          style={{
+            color: '#d4af37',
+            textAlign: 'center',
+            fontSize: '34px',
+            marginBottom: '50px',
+          }}
+        >
+          Craftsmanship Kami
+        </h2>
+
+        {[
+          ["Perancangan", "Setiap desain dimulai dari sketsa mendalam."],
+          ["Pemilihan Material", "Kami hanya memilih bahan premium."],
+          ["Pembuatan Detail", "Dikerjakan melalui teknik penjahitan presisi."],
+          ["Quality Control", "Setiap produk dicek satu per satu dengan teliti."]
+        ].map(([title, desc], i) => (
+          <div key={i}
+            style={{
+              marginBottom: '35px',
+              padding: '22px 25px',
+              background: '#141414',
+              borderRadius: '12px',
+              borderLeft: '3px solid #d4af37',
+            }}
+          >
+            <h3 style={{ color: '#d4af37', marginBottom: '6px' }}>{title}</h3>
+            <p style={{ opacity: 0.8 }}>{desc}</p>
+          </div>
+        ))}
+      </div>
+
+      {/* TIMELINE */}
+      <div
+        ref={timelineRef}
+        style={{
+          maxWidth: '900px',
+          margin: '130px auto 0',
+        }}
+      >
+        <h2
+          style={{
+            color: '#d4af37',
+            textAlign: 'center',
+            fontSize: '34px',
+            marginBottom: '50px',
+          }}
+        >
+          Perjalanan Kami
+        </h2>
+
+        {[
+          ["2025 – Awal Berdiri", "SORA & CO lahir sebagai brand fashion premium."],
+          ["2026 – Ekspansi Besar", "Mulai memasuki pasar outerwear, footwear, dan aksesoris."],
+          ["2027 – Go International", "Kolaborasi dengan influencer global."],
+          ["2028 – House of Fashion", "Membuka showroom flagship pertama."]
+        ].map(([title, desc], i) => (
+          <div key={i}
+            style={{
+              marginBottom: '30px',
+              padding: '25px 28px',
+              backgroundColor: '#151515',
+              borderRadius: '12px',
+              borderLeft: '3px solid #d4af37',
+            }}
+          >
+            <h3 style={{ color: '#d4af37', marginBottom: '8px' }}>{title}</h3>
+            <p style={{ opacity: 0.85 }}>{desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}

@@ -3,10 +3,14 @@ import React, { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { gsap } from 'gsap';
+import { Badge } from 'antd';
+import { ShoppingCartOutlined } from '@ant-design/icons';
+import { useCart } from '../context/CartContext';
 
 export default function Navbar() {
   const pathname = usePathname();
   const navRef = useRef(null);
+  const { items } = useCart(); // ambil jumlah cart
 
   useEffect(() => {
     gsap.fromTo(
@@ -57,12 +61,34 @@ export default function Navbar() {
       </Link>
 
       {/* Nav Links */}
-      <div style={{ display: 'flex', gap: '32px' }}>
+      <div style={{ display: 'flex', gap: '32px', alignItems: 'center' }}>
         <Link href="/" style={linkStyle('/')}>Home</Link>
         <Link href="/about" style={linkStyle('/about')}>About</Link>
         <Link href="/products" style={linkStyle('/products')}>Products</Link>
-        <Link href="/cart" style={linkStyle('/cart')}>Cart</Link>
         <Link href="/contact" style={linkStyle('/contact')}>Contact</Link>
+
+        {/* CART ICON */}
+        <Link href="/cart">
+          <Badge
+            count={items.length}
+            offset={[0, 0]}
+            style={{
+              backgroundColor: '#d4af37',
+              color: '#000',
+              fontWeight: '600',
+            }}
+          >
+            <ShoppingCartOutlined
+              id="cart-icon"
+              style={{
+                fontSize: '24px',
+                color: pathname === '/cart' ? '#d4af37' : '#fff',
+                cursor: 'pointer',
+                transition: '0.3s',
+              }}
+            />
+          </Badge>
+        </Link>
       </div>
     </nav>
   );

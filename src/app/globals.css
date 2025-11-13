@@ -91,3 +91,29 @@ a {
   color: #000 !important;
   font-weight: 600;
 }
+.skeleton-img {
+  height: 260px;
+  width: 100%;
+  background: linear-gradient(90deg, #222, #333, #222);
+  animation: shimmer 1.5s infinite linear;
+  border-radius: 14px;
+}
+
+.skeleton-text {
+  height: 18px;
+  width: 70%;
+  background: linear-gradient(90deg, #222, #333, #222);
+  margin-top: 15px;
+  border-radius: 8px;
+  animation: shimmer 1.5s infinite linear;
+}
+
+.skeleton-text.small {
+  height: 14px;
+  width: 50%;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200px 0; }
+  100% { background-position: 200px 0; }
+}
